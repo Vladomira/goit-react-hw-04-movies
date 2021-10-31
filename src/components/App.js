@@ -1,36 +1,39 @@
-import { Switch, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Container from './Container';
-// import HomePage from '../views/HomeView.js';
-// import MoviesPage from '../views/MoviesPage';
-// import MovieDetailsPage from '../views/HomePage';
+import HomePage from '../views/HomePage';
+import MoviesPage from '../views/MoviesPage';
+import MovieDetailsPage from '../views/MovieDetailsPage';
 import NavigationBox from './NavigationBox';
-// import NotFound from '../views/NotFound';
+import NotFound from '../views/NotFound';
+//
+import '../styles/Container.scss';
+import '../styles/HomePage.scss';
+import '../styles/Navigation.scss';
+import '../styles/Input.scss';
 
+//
 function App() {
   return (
     <Container>
-      <h1>hello</h1>
       <NavigationBox />
 
       <Switch>
-        {/* <Route path="/" exact>
+        <Route path="/" exact component={HomePage}>
           <HomePage />
-        </Route> */}
-        {/* <Route path="/" exact>
-          <HomePage />
-        </Route> */}
+        </Route>
 
-        {/* <Route path="/movies" exact>
+        <Route path="/movies" exact>
+          {/* посик по ключевому слову */}
           <MoviesPage />
-        </Route> */}
+        </Route>
 
-        {/* <Route path="/movies/:movieId" exact>
+        <Route path="/movies/:movieId">
           <MovieDetailsPage />
-        </Route> */}
+        </Route>
 
-        {/* <Route>
+        <Route>
           <NotFound />
-        </Route> */}
+        </Route>
       </Switch>
     </Container>
   );

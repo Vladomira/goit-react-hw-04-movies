@@ -1,0 +1,24 @@
+.nav {
+  text-decoration: none;
+  color: #853f33;
+  font-size: 40px;
+  font-weight: 700;
+  &:hover,
+  &:focus {
+    color: #853f33;
+  }
+  &__box {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    width: 500px;
+    padding: 20px 15px;
+    border-radius: 8px;
+    // border: 1px solid rgb(221, 144, 131);
+    // box-shadow: 4px 4px 8px 5px rgba(221, 144, 131, 0.2);
+  }
+  &__active {
+    color: #eba99e;
+  }
+}
