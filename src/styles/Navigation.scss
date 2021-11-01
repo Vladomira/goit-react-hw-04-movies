@@ -5,7 +5,7 @@
   font-weight: 700;
   &:hover,
   &:focus {
-    color: #853f33;
+    color: #e09183;
   }
   &__box {
     display: flex;
@@ -20,5 +20,33 @@
   }
   &__active {
     color: #eba99e;
+    text-decoration: none;
+  }
+}
+.back {
+  &__btn {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    // min-width: 200px;
+    margin-right: 20px;
+    height: 80px;
+    // padding: 3px 5px;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 8px;
+    background-color: #853f33;
+    color: #eba99e;
+    margin-bottom: 30px;
+    &:hover,
+    &:focus {
+      background-color: #e09183;
+      color: #853f33;
+      // color: #471911;
+      // background-color: #b86253;
+    }
+  }
+  &__text {
+    text-decoration: none;
   }
 }

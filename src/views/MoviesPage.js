@@ -1,18 +1,22 @@
-import { useState, useEffect } from 'react';
-import { useRouteMatch, Link } from 'react-router-dom';
+import { useState, useEffect, lazy, Suspense } from 'react';
+import { useRouteMatch, useLocation } from 'react-router-dom';
 import { Route } from 'react-router-dom';
+import makeSlug from '../techBox/makeSlug';
 import * as movieFetchApi from '../services/FetchMovies';
 import InputMarkup from '../components/InputMarkup';
-import generateVote from '../techBox/VoteAverage';
-import defaultImg from '../img/netflix.jpg';
+import Loader from 'react-loader-spinner';
+
+const MovieList = lazy(() =>
+  import('../components/MovieList' /* webpackChunkName: "movies-list" */),
+);
 //
-export default function MoviesPage({ onSubmit }) {
+export default function MoviesPage() {
   const [query, setQuery] = useState('');
   const [error, setError] = useState('');
   const [entriesMovie, setEntriesMovie] = useState(null);
   const [status, setStatus] = useState('idle');
   const { url } = useRouteMatch();
-
+  const location = useLocation();
   const handleFormSubmit = query => {
     setQuery(query);
     setEntriesMovie([]);
@@ -54,7 +58,6 @@ export default function MoviesPage({ onSubmit }) {
       });
   }, [query]);
 
-  const IMG_URL = 'https://image.tmdb.org/t/p/w500';
   return (
     <>
       <Route path={`${url}`}>
@@ -62,36 +65,17 @@ export default function MoviesPage({ onSubmit }) {
       </Route>
 
       {status === 'pending' && (
-        <ul className="movie-list">
-          {entriesMovie.map(el => {
-            return (
-              <li key={el.id} className="movie-list__item">
-                <Link to={`${url}/${el.id}`} className="movie-list__title">
-                  {el.title}
-                </Link>
-                <div className="movie-list__desc--box">
-                  <span className="movie-list__desc">
-                    Vote: {generateVote(el)}
-                  </span>
-                  <span className="movie-list__desc">
-                    Year: {Number(el.release_date.slice(0, 4))}
-                  </span>
-                </div>
-
-                {el.poster_path === null || undefined ? (
-                  // <div>
-                  <img className="movie-list__img" src={defaultImg} alt="" />
-                ) : (
-                  <img
-                    className="movie-list__img"
-                    src={`${IMG_URL}${el.poster_path}`}
-                    alt=""
-                  />
-                )}
-              </li>
-            );
-          })}
-        </ul>
+        <>
+          <Suspense fallback={<Loader />} className="additional__title">
+            <MovieList
+              entriesMovie={entriesMovie}
+              query={query}
+              makeSlug={makeSlug}
+              location={location}
+              url={url}
+            />
+          </Suspense>
+        </>
       )}
     </>
   );

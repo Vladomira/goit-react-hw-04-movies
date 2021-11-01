@@ -24,28 +24,30 @@ export default function Cast({ id }) {
   const IMG_URL = 'https://image.tmdb.org/t/p/original';
   return (
     <>
-      <ul>
+      <ul className="movie-list">
         {status === 'pending' &&
           movieCast.map(el => {
             return (
-              <li key={el.id}>
-                <div>
-                  {el.profile_path ? (
-                    <img
-                      src={`${IMG_URL}${el.profile_path}`}
-                      alt=""
-                      width="200"
-                    />
-                  ) : (
-                    <img
-                      src="https://image.tmdb.org/t/p/original/wwemzKWzjKYJFfCeiB57q3r4Bcm.svg"
-                      alt=""
-                      width="200"
-                    />
-                  )}
-                </div>
-                <p>{el.name}</p>
-                <p>{el.character}</p>
+              <li key={el.id} className="movie-list__item">
+                {el.profile_path ? (
+                  <img
+                    className="movie-list__img"
+                    src={`${IMG_URL}${el.profile_path}`}
+                    alt=""
+                  />
+                ) : (
+                  <img
+                    className="movie-list__img"
+                    src="https://image.tmdb.org/t/p/original/wwemzKWzjKYJFfCeiB57q3r4Bcm.svg"
+                    alt=""
+                  />
+                )}
+                <ul className="movie-list__cast-box">
+                  <li className="movie-list__cast--name">{el.name}</li>
+                  <li className="movie-list__cast--character">
+                    {el.character}
+                  </li>
+                </ul>
               </li>
             );
           })}

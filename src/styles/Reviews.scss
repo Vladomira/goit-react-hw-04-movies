@@ -1,0 +1,28 @@
+.reviews {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px;
+    list-style-type: none;
+  }
+  &__item {
+    border: 1px solid #751919;
+    border-radius: 8px;
+    padding-left: 30px;
+    padding-right: 30px;
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+  &__name {
+    font-size: 32px;
+    font-weight: 700;
+    font-style: italic;
+    color: #751919;
+  }
+  &__article {
+    font-size: 28px;
+    color: #380707;
+    font-weight: 600;
+  }
+}

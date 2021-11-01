@@ -16,22 +16,20 @@ export default function InputMurkup({ onSubmit }) {
     setQuery('');
   };
   return (
-    <header className="Searchbar">
-      <form className="form" onSubmit={handleSubmit}>
-        <input
-          onChange={handleChange}
-          value={query}
-          name="query"
-          className="form__input"
-          type="text"
-          autoComplete="off"
-          autoFocus
-          placeholder="Type film name"
-        />
-        <button type="submit" className="form__addBtn">
-          <span className="form__label">Search</span>
-        </button>
-      </form>
-    </header>
+    <form className="form__box" onSubmit={handleSubmit}>
+      <input
+        onChange={handleChange}
+        value={query}
+        name="query"
+        className="form__input"
+        type="text"
+        autoComplete="off"
+        autoFocus
+        placeholder="Type film name"
+      />
+      <button type="submit" className="form__btn">
+        <span className="form__btn_text">Search</span>
+      </button>
+    </form>
   );
 }

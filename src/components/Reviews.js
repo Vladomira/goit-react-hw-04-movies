@@ -19,14 +19,16 @@ export default function Reviews({ id }) {
     <>
       {status === 'pending' &&
         (reviews.length === 0 ? (
-          <p>Sorry, we don't have any reviews for this movie.</p>
+          <p className="reviews__name">
+            Sorry, we don't have any reviews for this movie.
+          </p>
         ) : (
-          <ul>
+          <ul className="reviews__list">
             {reviews.map(el => {
               return (
-                <li key={el.id}>
-                  <h3>{el.author}</h3>
-                  <p>{el.content}</p>
+                <li key={el.id} className="reviews__item">
+                  <h3 className="reviews__name">{el.author}</h3>
+                  <p className="reviews__article">{el.content}</p>
                 </li>
               );
             })}

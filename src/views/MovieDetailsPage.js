@@ -1,80 +1,57 @@
-import { Route, NavLink } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { useParams, useRouteMatch } from 'react-router-dom';
+import { Route, useLocation } from 'react-router-dom';
+import { useState, useEffect, lazy, Suspense } from 'react';
+import { useParams, useRouteMatch, useHistory } from 'react-router-dom';
 import * as movieFetchApi from '../services/FetchMovies';
-import Cast from '../components/Cast';
-import Reviews from '../components/Reviews';
-import PageHeading from '../components/PageHeading';
-import dataNormalize from '../techBox/DataNormalize';
-//
+import Loader from 'react-loader-spinner';
 
+//
+const Cast = lazy(() =>
+  import('../components/Cast' /* webpackChunkName: "movie-cast" */),
+);
+const Reviews = lazy(() =>
+  import('../components/Reviews' /* webpackChunkName: "movie-reviews" */),
+);
+const MovieComponent = lazy(() =>
+  import(
+    '../components/MovieComponent' /* webpackChunkName: "movie-reviews" */
+  ),
+);
 export default function MovieDetailsPage() {
-  const { movieId } = useParams();
+  const location = useLocation();
+  const history = useHistory();
+  const { slug } = useParams();
   const [movie, setMovie] = useState(null);
   const { url } = useRouteMatch();
+  const movieId = slug.match(/[a-zA-Z0-9]+$/)[0];
+
   useEffect(() => {
     movieFetchApi.fetchForMovie(movieId).then(setMovie);
   }, [movieId]);
+
+  const onGoBack = () => {
+    history.push(location?.state?.from?.location ?? '/');
+  };
   return (
     <>
-      <PageHeading text={`Movie ${movieId}`} />
-
       {movie && (
         <>
-          <img
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-            alt=""
-          />
-          <h2>
-            {movie.title}
-            <span> ({dataNormalize(movie)})</span>
-          </h2>
-          <p>User Score: {movie.vote_average * 10}%</p>
-          <p>Owerview</p>
-          <p>{movie.overview}</p>
-          <ul>
-            Genres
-            {movie.genres.map(el => {
-              return <li key={el.id}>{el.name}</li>;
-            })}
-          </ul>
-          <div>
-            <p>Addditional information</p>
-            <ul>
-              <li>
-                <NavLink to={`${url}/cast`}>Cast</NavLink>
-              </li>
-              <li>
-                <NavLink to={`${url}/reviews`}>Reviews</NavLink>
-              </li>
-            </ul>
+          <Suspense fallback={<Loader />} className="additional__title">
+            <MovieComponent
+              movie={movie}
+              url={url}
+              location={location}
+              onGoBack={onGoBack}
+            />
+
             <Route exact path={`${url}/cast`}>
               <Cast id={movie.id} />
             </Route>
             <Route exact path={`${url}/reviews`}>
               <Reviews id={movie.id} />
             </Route>
-          </div>
+          </Suspense>
         </>
       )}
     </>
   );
 }
-
-// {/* <NavForAddInfo /> */}
-
-// {/* <Route path={`${url}/cast`} component={Cast}>
-//   {/* <Cast id={movie.id} /> */}
-// {/* </Route> */}
-// {/* <Route path="/movies/:movieId/reviews">
-//   <Reviews id={movie.id} />
-// </Route> */}
-//  {/* <NavLink to={`${url}/cast`}>
-//                 <Cast id={movie.id} />
-//               </NavLink> */}
-
-//             {/* <NavLink to={`${url}/reviews`}>reviews</NavLink> */}
-
-//         {/* <Route path="/movies/:movieId/cast" exact>
-//           <Cast />
-//         </Route> */}
