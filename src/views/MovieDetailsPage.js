@@ -1,16 +1,16 @@
-import { Route, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { useParams, useRouteMatch, useHistory } from 'react-router-dom';
 import * as movieFetchApi from '../services/FetchMovies';
 import Loader from 'react-loader-spinner';
 
 //
-const Cast = lazy(() =>
-  import('../components/Cast' /* webpackChunkName: "movie-cast" */),
-);
-const Reviews = lazy(() =>
-  import('../components/Reviews' /* webpackChunkName: "movie-reviews" */),
-);
+// const Cast = lazy(() =>
+//   import('../components/Cast' /* webpackChunkName: "movie-cast" */),
+// );
+// const Reviews = lazy(() =>
+// //   import('../components/Reviews' /* webpackChunkName: "movie-reviews" */),
+// );
 const MovieComponent = lazy(() =>
   import(
     '../components/MovieComponent' /* webpackChunkName: "movie-reviews" */
@@ -43,12 +43,12 @@ export default function MovieDetailsPage() {
               onGoBack={onGoBack}
             />
 
-            <Route exact path={`${url}/cast`}>
+            {/* <Route exact path={`${url}/cast`}>
               <Cast id={movie.id} />
             </Route>
             <Route exact path={`${url}/reviews`}>
               <Reviews id={movie.id} />
-            </Route>
+            </Route> */}
           </Suspense>
         </>
       )}

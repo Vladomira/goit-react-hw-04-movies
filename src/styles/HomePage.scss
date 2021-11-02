@@ -23,13 +23,12 @@
     flex-direction: column;
     margin-left: 30px;
     margin-top: 30px;
-    flex-basis: calc(100% / 3 - 30px);
+    // flex-basis: calc(100% / 2 - 30px);
     max-width: 500px;
     // padding: 20px 0px 0px;
     border-radius: 8px;
     box-shadow: 4px 4px 8px 5px rgba(34, 60, 80, 0.2);
     transform: scale(1);
-    // background-color: #e2a499;
     background-color: #e09183;
     transform: scale(1);
     transition: transform 200ms cubic-bezier(0.17, 0.67, 0.83, 0.67);

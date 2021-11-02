@@ -1,7 +1,7 @@
 .movie-details {
   &__box {
     display: flex;
-    margin: 50px 50px;
+    // margin: 50px 50px;
     align-items: start;
     box-shadow: 4px 4px 8px 5px rgba(34, 60, 80, 0.2);
     padding-left: 8px;
@@ -10,8 +10,9 @@
   &__info {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    margin-left: 100px;
+    flex-wrap: wrap;
+    padding-right: 15px;
+    margin-left: 80px;
   }
   &__img {
     // min-width: 560px;

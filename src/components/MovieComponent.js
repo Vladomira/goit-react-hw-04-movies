@@ -1,23 +1,29 @@
-import { NavLink } from 'react-router-dom';
+import { Route, NavLink } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
 import defaultImg from '../img/netflix.jpg';
 import dataNormalize from '../techBox/DataNormalize';
 const URL = 'https://image.tmdb.org/t/p/w500';
+
+const Cast = lazy(() =>
+  import('../components/Cast' /* webpackChunkName: "movie-cast" */),
+);
+const Reviews = lazy(() =>
+  import('../components/Reviews' /* webpackChunkName: "movie-reviews" */),
+);
+
 function MovieRender({ movie, url, onGoBack, location }) {
   return (
     <>
       <button type="button" onClick={onGoBack} className="back__btn">
-        &#8592; {location?.state?.from?.label ?? 'Back'}
+        &#8592; {location?.state?.from?.label ?? 'To trending movies'}
       </button>
       <div className="movie-details__box">
-        {/* <div> */}
-
         {movie.poster_path ? (
           <img src={`${URL}${movie.poster_path}`} alt="" />
         ) : (
           <img src={defaultImg} alt="" />
         )}
-        {/* </div> */}
 
         <div className="movie-details__info">
           <h2 className="movie-details__title">
@@ -75,6 +81,14 @@ function MovieRender({ movie, url, onGoBack, location }) {
           </ul>
         </div>
       </div>
+      <Suspense>
+        <Route exact path={`${url}/cast`}>
+          <Cast id={movie.id} />
+        </Route>
+        <Route exact path={`${url}/reviews`}>
+          <Reviews id={movie.id} />
+        </Route>
+      </Suspense>
     </>
   );
 }
