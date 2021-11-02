@@ -28,10 +28,14 @@ function MovieRender({ movie, url, onGoBack, location }) {
         <div className="movie-details__info">
           <h2 className="movie-details__title">
             {movie.title}
-            <span> ({dataNormalize(movie)})</span>
+            {movie.release_date ? (
+              <span> ({dataNormalize(movie.release_date)})</span>
+            ) : (
+              <span> (year: ????)</span>
+            )}
           </h2>
           <p className="movie-details__desc">
-            User Score:{' '}
+            User Score:
             <span className="movie-details__vote">
               {movie.vote_average * 10}%
             </span>

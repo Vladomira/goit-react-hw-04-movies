@@ -21,7 +21,7 @@ export default function HomeComponent({ trendMovies, makeSlug, location }) {
               </Link>
               <div className="movie-list__desc--box">
                 <span className="movie-list__desc">
-                  Vote: {generateVote(movie)}
+                  Vote: {generateVote(movie.vote_average)}
                 </span>
                 <span className="movie-list__desc">
                   Year: {Number(movie.release_date.slice(0, 4))}

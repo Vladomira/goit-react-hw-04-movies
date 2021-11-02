@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import dataNormalize from '../techBox/DataNormalize';
 import generateVote from '../techBox/VoteAverage';
 import defaultImg from '../img/netflix.jpg';
 
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 export default function MovieList({ entriesMovie, url, makeSlug, location }) {
-  // console.log(location, '  location');
   return (
     <>
       <ul className="movie-list">
@@ -22,12 +22,29 @@ export default function MovieList({ entriesMovie, url, makeSlug, location }) {
                 {el.title}
               </Link>
               <div className="movie-list__desc--box">
-                <span className="movie-list__desc">
-                  Vote: {generateVote(el)}
-                </span>
-                <span className="movie-list__desc">
-                  Year: {Number(el.release_date.slice(0, 4))}
-                </span>
+                {el.vote_average ? (
+                  <span className="movie-list__desc">
+                    Vote: {generateVote(el.vote_average)}
+                  </span>
+                ) : (
+                  <span className="movie-list__desc">Vote: ??</span>
+                )}
+
+                {el.release_date ? (
+                  <span className="movie-list__desc">
+                    Year: {dataNormalize(el.release_date)}
+                  </span>
+                ) : (
+                  <span className="movie-list__desc">Year: Unknown</span>
+                )}
+                {/* <span className="movie-list__desc">
+                  Year:
+                  {el.release_date ? (
+                    Number(el.release_date.slice(0, 4))
+                  ) : (
+                    <span> Unknown</span>
+                  )}
+                </span> */}
               </div>
 
               {el.poster_path === null || undefined ? (
@@ -50,7 +67,7 @@ export default function MovieList({ entriesMovie, url, makeSlug, location }) {
 MovieList.propTypes = {
   entriesMovie: PropTypes.arrayOf(
     PropTypes.shape({
-      release_date: PropTypes.string.isRequired,
+      release_date: PropTypes.string,
       title: PropTypes.string.isRequired,
       vote_average: PropTypes.number.isRequired,
       overview: PropTypes.string.isRequired,
