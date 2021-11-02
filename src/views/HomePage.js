@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import * as movieFetchApi from '../services/FetchMovies';
 import makeSlug from '../techBox/makeSlug';
 import Loader from 'react-loader-spinner';
-// import HomeComponent from '../components/HomeComponent';
+import PageHeading from '../components/PageHeading';
 
 const HomeComponent = lazy(() =>
   import(
@@ -34,7 +34,7 @@ export default function HomePage() {
   }, []);
   return (
     <>
-      {/* <PageHeading text="Home" /> */}
+      <PageHeading text="Trending movies" />
       {status === 'pending' && (
         <Suspense fallback={<Loader />} className="additional__title">
           {/* // <Route> */}

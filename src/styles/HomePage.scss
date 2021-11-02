@@ -1,7 +1,8 @@
 .header {
   text-align: center;
   font-size: 40px;
-  color: #853f33;
+  color: #7a2020;
+  padding-bottom: 30px;
 }
 
 .movie-list {
@@ -11,7 +12,7 @@
   flex-wrap: wrap;
   margin-left: -30px;
   margin-top: -30px;
-  padding: 50px 30px;
+  margin-bottom: 30px;
   list-style-type: none;
   box-shadow: 4px 4px 8px 5px rgba(34, 60, 80, 0.2);
 
@@ -89,7 +90,7 @@
     border-radius: 5px;
   }
   &__cast--character {
-    color: #110a50;
+    color: #350a0a;
   }
   &__cast-box {
     margin-top: 30px;

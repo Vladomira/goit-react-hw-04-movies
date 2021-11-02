@@ -28,16 +28,18 @@
     display: flex;
     cursor: pointer;
     align-items: center;
+    justify-content: center;
     // min-width: 200px;
     margin-right: 20px;
-    height: 80px;
-    // padding: 3px 5px;
-    font-size: 20px;
+    min-width: 150px;
+    min-height: 58px;
+    padding: 10px 8px;
+    font-size: 28px;
     font-weight: 700;
     border-radius: 8px;
     background-color: #853f33;
     color: #eba99e;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     &:hover,
     &:focus {
       background-color: #e09183;

@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import defaultImg from '../img/netflix.jpg';
 import dataNormalize from '../techBox/DataNormalize';
-
+const URL = 'https://image.tmdb.org/t/p/w500';
 function MovieRender({ movie, url, onGoBack, location }) {
   return (
     <>
@@ -13,10 +13,7 @@ function MovieRender({ movie, url, onGoBack, location }) {
         {/* <div> */}
 
         {movie.poster_path ? (
-          <img
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-            alt=""
-          />
+          <img src={`${URL}${movie.poster_path}`} alt="" />
         ) : (
           <img src={defaultImg} alt="" />
         )}
@@ -54,7 +51,7 @@ function MovieRender({ movie, url, onGoBack, location }) {
       <div>
         <div className="additional__box">
           <ul className="additional__list">
-            <h3 className="additional__title">Additional information</h3>
+            <h3 className="additional__title">Additional information:</h3>
             <li>
               <NavLink
                 exact
@@ -95,3 +92,6 @@ MovieRender.propTypes = {
   }),
 };
 export default MovieRender;
+// style={{
+//   backgroundImage: `url("${URL}${movie.poster_path}")`,
+// }}
