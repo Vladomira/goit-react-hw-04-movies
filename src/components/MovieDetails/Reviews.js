@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import * as movieFetchApi from '../services/FetchMovies';
-import scroll from '../techBox/scroll';
+import * as movieFetchApi from '../../services/FetchMovies';
+import scroll from '../../techBox/scroll';
 
 export default function Reviews({ id }) {
   const [reviews, setReviews] = useState();

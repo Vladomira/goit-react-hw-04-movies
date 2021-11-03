@@ -3,11 +3,13 @@ import { useRouteMatch, useLocation, useHistory } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import makeSlug from '../techBox/makeSlug';
 import * as movieFetchApi from '../services/FetchMovies';
-import InputMarkup from '../components/InputMarkup';
+import InputMarkup from '../components/MoviesSearch/InputMarkup';
 import SpinLoader from '../components/Loader';
 
 const MovieList = lazy(() =>
-  import('../components/MovieList' /* webpackChunkName: "movies-list" */),
+  import(
+    '../components/MoviesSearch/MovieList' /* webpackChunkName: "movies-list" */
+  ),
 );
 //
 export default function MoviesPageView() {

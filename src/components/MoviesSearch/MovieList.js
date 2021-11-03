@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import dataNormalize from '../techBox/DataNormalize';
-import generateVote from '../techBox/VoteAverage';
-import defaultImg from '../img/netflix.jpg';
+import dataNormalize from '../../techBox/DataNormalize';
+import generateVote from '../../techBox/VoteAverage';
+import defaultImg from '../../img/netflix.jpg';
 
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 export default function MovieList({ entriesMovie, url, makeSlug, location }) {

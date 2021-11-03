@@ -1,15 +1,13 @@
 import { Route, NavLink } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
-import defaultImg from '../img/netflix.jpg';
-import dataNormalize from '../techBox/DataNormalize';
+import defaultImg from '../../img/netflix.jpg';
+import dataNormalize from '../../techBox/DataNormalize';
 const URL = 'https://image.tmdb.org/t/p/w500';
 
-const Cast = lazy(() =>
-  import('../components/Cast' /* webpackChunkName: "movie-cast" */),
-);
+const Cast = lazy(() => import('./Cast' /* webpackChunkName: "movie-cast" */));
 const Reviews = lazy(() =>
-  import('../components/Reviews' /* webpackChunkName: "movie-reviews" */),
+  import('./Reviews' /* webpackChunkName: "movie-reviews" */),
 );
 
 function MovieRender({ movie, url, onGoBack, location }) {

@@ -12,7 +12,7 @@ import SpinLoader from '../components/Loader';
 // );
 const MovieComponent = lazy(() =>
   import(
-    '../components/MovieComponent' /* webpackChunkName: "movie-reviews" */
+    '../components/MovieDetails/MovieComponent' /* webpackChunkName: "movie-reviews" */
   ),
 );
 export default function MovieDetailsPageView() {
