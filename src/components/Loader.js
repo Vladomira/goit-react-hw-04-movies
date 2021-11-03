@@ -1,20 +1,23 @@
 import Loader from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import { React, Component } from 'react';
 
-export default function SpinLoader() {
-  return (
-    <Loader
-      type="Hearts"
-      color="#853f33"
-      height={100}
-      width={90}
-      timeout={3000}
-      style={{
-        position: 'fixed',
-        top: '40%',
-        left: '50%',
-      }}
-    />
-  );
+export default class SpinLoader extends Component {
+  //other logic
+  render() {
+    return (
+      <Loader
+        type="Hearts"
+        color="#7a2020"
+        height={150}
+        width={150}
+        timeout={5000}
+        style={{
+          position: 'fixed',
+          top: '30%',
+          left: '45%',
+        }}
+      />
+    );
+  }
 }
-export default SpinLoader;

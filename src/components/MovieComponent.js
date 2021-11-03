@@ -87,7 +87,7 @@ function MovieRender({ movie, url, onGoBack, location }) {
       </div>
       <Suspense>
         <Route exact path={`${url}/cast`}>
-          <Cast id={movie.id} />
+          <Cast id={movie.id} url={url} location={location} />
         </Route>
         <Route exact path={`${url}/reviews`}>
           <Reviews id={movie.id} />

@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import * as movieFetchApi from '../services/FetchMovies';
+import scroll from '../techBox/scroll';
 
 export default function Cast({ id }) {
   const [movieCast, setMovieCast] = useState('');
   const [status, setStatus] = useState('idle');
-  // console.log(id, 'id');
   useEffect(() => {
     movieFetchApi.fetchForMovieCast(id).then(result => {
       const dataCast = result.cast.map(
@@ -19,6 +19,7 @@ export default function Cast({ id }) {
       );
       setMovieCast(dataCast);
       setStatus('pending');
+      scroll();
     });
   }, [id]);
   const IMG_URL = 'https://image.tmdb.org/t/p/original';

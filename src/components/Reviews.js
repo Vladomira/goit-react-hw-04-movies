@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import * as movieFetchApi from '../services/FetchMovies';
+import scroll from '../techBox/scroll';
 
 export default function Reviews({ id }) {
   const [reviews, setReviews] = useState();
@@ -12,6 +13,7 @@ export default function Reviews({ id }) {
       });
       setReviews(dataReviews);
       setStatus('pending');
+      scroll();
     });
   }, [id]);
   // console.log(reviews.length, 'reviews');

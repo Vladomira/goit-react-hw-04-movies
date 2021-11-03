@@ -8,6 +8,7 @@ import Container from './Container';
 import NavigationBox from './NavigationBox';
 
 //
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import '../styles/Container.scss';
 import '../styles/HomePage.scss';
 import '../styles/Navigation.scss';
@@ -15,19 +16,19 @@ import '../styles/Input.scss';
 import '../styles/MovieDetailsPage.scss';
 import '../styles/Reviews.scss';
 //
-const HomePage = lazy(() =>
-  import('../views/HomePage' /* webpackChunkName: "home-page" */),
+const HomePageView = lazy(() =>
+  import('../views/HomePageView' /* webpackChunkName: "home-page" */),
 );
-const MoviesPage = lazy(() =>
-  import('../views/MoviesPage' /* webpackChunkName: "movie-page" */),
+const MoviesPageView = lazy(() =>
+  import('../views/MoviesPageView' /* webpackChunkName: "movie-page" */),
 );
-const MovieDetailsPage = lazy(() =>
+const MovieDetailsPageView = lazy(() =>
   import(
-    '../views/MovieDetailsPage' /* webpackChunkName: "details-of-movie" */
+    '../views/MovieDetailsPageView' /* webpackChunkName: "details-of-movie" */
   ),
 );
-const NotFound = lazy(() =>
-  import('../views/NotFound' /* webpackChunkName: "not-found" */),
+const NotFoundView = lazy(() =>
+  import('../views/NotFoundView' /* webpackChunkName: "not-found" */),
 );
 
 function App() {
@@ -37,21 +38,25 @@ function App() {
 
       <Suspense fallback={<h1>Loading...</h1>}>
         <Switch>
-          <Route path="/" exact component={HomePage}>
-            <HomePage />
+          <Route
+            path="/"
+            exact
+            // component={HomePageView}
+          >
+            <HomePageView />
           </Route>
 
           <Route path="/movies" exact>
             {/* посик по ключевому слову */}
-            <MoviesPage />
+            <MoviesPageView />
           </Route>
 
           <Route path="/movies/:slug">
-            <MovieDetailsPage />
+            <MovieDetailsPageView />
           </Route>
 
           <Route>
-            <NotFound />
+            <NotFoundView />
           </Route>
         </Switch>
       </Suspense>

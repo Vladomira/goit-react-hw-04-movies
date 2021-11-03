@@ -1,17 +1,18 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { useRouteMatch, useLocation } from 'react-router-dom';
+import { useRouteMatch, useLocation, useHistory } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import makeSlug from '../techBox/makeSlug';
 import * as movieFetchApi from '../services/FetchMovies';
 import InputMarkup from '../components/InputMarkup';
-import Loader from 'react-loader-spinner';
+import SpinLoader from '../components/Loader';
 
 const MovieList = lazy(() =>
   import('../components/MovieList' /* webpackChunkName: "movies-list" */),
 );
 //
-export default function MoviesPage() {
+export default function MoviesPageView() {
   const [query, setQuery] = useState('');
+  const history = useHistory();
   const [error, setError] = useState('');
   const [entriesMovie, setEntriesMovie] = useState(null);
   const [status, setStatus] = useState('idle');
@@ -20,7 +21,19 @@ export default function MoviesPage() {
   const handleFormSubmit = query => {
     setQuery(query);
     setEntriesMovie([]);
+    // history.push(`?query=${query}`);
+
+    history.push({
+      ...location,
+      search: `query=${query}`,
+    });
   };
+  const currentQuery = new URLSearchParams(location.search).get('query');
+  useEffect(() => {
+    if (currentQuery) {
+      setQuery(currentQuery);
+    }
+  }, [currentQuery]);
   useEffect(() => {
     if (!query) {
       return;
@@ -66,14 +79,16 @@ export default function MoviesPage() {
 
       {status === 'pending' && (
         <>
-          <Suspense fallback={<Loader />} className="additional__title">
-            <MovieList
-              entriesMovie={entriesMovie}
-              query={query}
-              makeSlug={makeSlug}
-              location={location}
-              url={url}
-            />
+          <Suspense fallback={<SpinLoader />}>
+            {query && (
+              <MovieList
+                entriesMovie={entriesMovie}
+                // query={newUrl}
+                makeSlug={makeSlug}
+                location={location}
+                url={url}
+              />
+            )}
           </Suspense>
         </>
       )}

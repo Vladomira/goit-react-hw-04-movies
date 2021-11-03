@@ -13,50 +13,41 @@ export default function MovieList({ entriesMovie, url, makeSlug, location }) {
           return (
             <li key={el.id} className="movie-list__item">
               <Link
+                className="movie-list__link"
                 to={{
                   pathname: `${url}/${makeSlug(`${el.title} ${el.id}`)}`,
                   state: { from: { location, label: 'To movies search' } },
                 }}
-                className="movie-list__title"
               >
-                {el.title}
-              </Link>
-              <div className="movie-list__desc--box">
-                {el.vote_average ? (
-                  <span className="movie-list__desc">
-                    Vote: {generateVote(el.vote_average)}
-                  </span>
-                ) : (
-                  <span className="movie-list__desc">Vote: ??</span>
-                )}
-
-                {el.release_date ? (
-                  <span className="movie-list__desc">
-                    Year: {dataNormalize(el.release_date)}
-                  </span>
-                ) : (
-                  <span className="movie-list__desc">Year: Unknown</span>
-                )}
-                {/* <span className="movie-list__desc">
-                  Year:
-                  {el.release_date ? (
-                    Number(el.release_date.slice(0, 4))
+                <span className="movie-list__title"> {el.title}</span>
+                <div className="movie-list__desc--box">
+                  {el.vote_average ? (
+                    <span className="movie-list__desc">
+                      Vote: {generateVote(el.vote_average)}
+                    </span>
                   ) : (
-                    <span> Unknown</span>
+                    <span className="movie-list__desc">Vote: ??</span>
                   )}
-                </span> */}
-              </div>
 
-              {el.poster_path === null || undefined ? (
-                // <div>
-                <img className="movie-list__img" src={defaultImg} alt="" />
-              ) : (
-                <img
-                  className="movie-list__img"
-                  src={`${IMG_URL}${el.poster_path}`}
-                  alt=""
-                />
-              )}
+                  {el.release_date ? (
+                    <span className="movie-list__desc">
+                      Year: {dataNormalize(el.release_date)}
+                    </span>
+                  ) : (
+                    <span className="movie-list__desc">Year: Unknown</span>
+                  )}
+                </div>
+
+                {el.poster_path === null || undefined ? (
+                  <img className="movie-list__img" src={defaultImg} alt="" />
+                ) : (
+                  <img
+                    className="movie-list__img"
+                    src={`${IMG_URL}${el.poster_path}`}
+                    alt=""
+                  />
+                )}
+              </Link>
             </li>
           );
         })}
@@ -78,5 +69,5 @@ MovieList.propTypes = {
   ),
   url: PropTypes.string.isRequired,
   makeSlug: PropTypes.func.isRequired,
-  location: PropTypes.object.isRequired,
+  // location: PropTypes.object.isRequired,
 };
