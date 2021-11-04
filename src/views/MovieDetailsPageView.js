@@ -38,19 +38,31 @@ export default function MovieDetailsPageView() {
     if (location.state == null) {
       history.push('/');
     }
+
     ///movieDetails:cast/reviews => HOME && movieDetails:cast/reviews=> moviesSearch
     if (location?.state?.from?.location?.state?.from?.location) {
       history.push(location.state.from.location.state.from.location);
     }
+
     //BY LINK movieDetails after choosen cast/link
     if (location?.state?.from?.location.state === undefined) {
       history.push('/');
     }
-    //link onmovies search with list of results
-    // if (location?.state?.from?.location.state === undefined) {
-    //   history.push(location.state.from.location);
-    // }
+    //details cast+reviews  не работает(((((((((
+    if (
+      location?.state?.from?.location?.state?.from?.location?.state?.from
+        ?.location?.state?.from?.location.state
+    ) {
+      history.push(
+        location.state.from.location.state.from.location.state.from.location
+          .state.from.location,
+      );
+    }
   };
+  // const newLoc = () => {
+  //   return location.state.from;
+  // };
+  // console.log('newLoc', newLoc());
   return (
     <>
       {movie && (
@@ -138,7 +150,7 @@ export default function MovieDetailsPageView() {
                 <Cast id={movie.id} url={url} location={location} />
               </Route>
               <Route exact path={`${url}/reviews`}>
-                <Reviews id={movie.id} />
+                <Reviews id={movie.id} location={location} />
               </Route>
             </Suspense>
           </Suspense>
@@ -151,3 +163,9 @@ export default function MovieDetailsPageView() {
 // =======
 // history.push(location?.state?.from?.location ?? '/');
 //  else history.push('/');
+
+// =====
+//link onmovies search with list of results
+// if (location?.state?.from?.location.state === undefined) {
+//   history.push(location.state.from.location);
+// }
