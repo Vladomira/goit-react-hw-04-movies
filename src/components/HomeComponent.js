@@ -14,7 +14,7 @@ export default function HomeComponent({ trendMovies, makeSlug, location }) {
                 className="movie-list__link"
                 to={{
                   pathname: `movies/${makeSlug(`${movie.title} ${movie.id}`)}`,
-                  state: { from: { location, label: 'To home page' } },
+                  state: { from: { location, label: 'Go back' } },
                 }}
               >
                 <span className="movie-list__title"> {movie.title}</span>

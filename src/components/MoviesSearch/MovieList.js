@@ -16,7 +16,7 @@ export default function MovieList({ entriesMovie, url, makeSlug, location }) {
                 className="movie-list__link"
                 to={{
                   pathname: `${url}/${makeSlug(`${el.title} ${el.id}`)}`,
-                  state: { from: { location, label: 'To movies search' } },
+                  state: { from: { location, label: 'Go back' } },
                 }}
               >
                 <span className="movie-list__title"> {el.title}</span>
@@ -69,5 +69,5 @@ MovieList.propTypes = {
   ),
   url: PropTypes.string.isRequired,
   makeSlug: PropTypes.func.isRequired,
-  // location: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
 };

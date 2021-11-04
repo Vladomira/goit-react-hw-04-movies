@@ -2,19 +2,21 @@ import { Route, NavLink } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
 import defaultImg from '../../img/netflix.jpg';
-import dataNormalize from '../../techBox/DataNormalize';
+import dataNormalize from '../techBox/DataNormalize';
 const URL = 'https://image.tmdb.org/t/p/w500';
 
-const Cast = lazy(() => import('./Cast' /* webpackChunkName: "movie-cast" */));
+const Cast = lazy(() =>
+  import('./MovieDetails/Cast' /* webpackChunkName: "movie-cast" */),
+);
 const Reviews = lazy(() =>
-  import('./Reviews' /* webpackChunkName: "movie-reviews" */),
+  import('./MovieDetails/Reviews' /* webpackChunkName: "movie-reviews" */),
 );
 
 function MovieRender({ movie, url, onGoBack, location }) {
   return (
     <>
       <button type="button" onClick={onGoBack} className="back__btn">
-        &#8592; {location?.state?.from?.label ?? 'To trending movies'}
+        &#8592; {location?.state?.from?.label ?? 'Go back'}
       </button>
       <div className="movie-details__box">
         {movie.poster_path ? (
@@ -55,7 +57,6 @@ function MovieRender({ movie, url, onGoBack, location }) {
           </ul>
         </div>
       </div>
-
       <div>
         <div className="additional__box">
           <ul className="additional__list">
@@ -63,7 +64,11 @@ function MovieRender({ movie, url, onGoBack, location }) {
             <li>
               <NavLink
                 exact
-                to={`${url}/cast`}
+                to={{
+                  pathname: `${url}/cast`,
+                  state: { from: { location, label: 'Go back' } },
+                }}
+                // to={`${url}/cast`}
                 className="additional__item"
                 activeClassName="additional__active"
               >
@@ -73,7 +78,11 @@ function MovieRender({ movie, url, onGoBack, location }) {
             <li>
               <NavLink
                 exact
-                to={`${url}/reviews`}
+                to={{
+                  pathname: `${url}/reviews`,
+                  state: { from: { location, label: 'Go back' } },
+                }}
+                // to={`${url}/reviews`}
                 className="additional__item"
                 activeClassName="additional__active"
               >

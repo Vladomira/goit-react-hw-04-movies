@@ -1,20 +1,22 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, NavLink, Route } from 'react-router-dom';
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { useParams, useRouteMatch, useHistory } from 'react-router-dom';
 import * as movieFetchApi from '../services/FetchMovies';
 import SpinLoader from '../components/Loader';
-
-// const Cast = lazy(() =>
-//   import('../components/Cast' /* webpackChunkName: "movie-cast" */),
-// );
-// const Reviews = lazy(() =>
-//   import('../components/Reviews' /* webpackChunkName: "movie-reviews" */),
-// );
-const MovieComponent = lazy(() =>
+import defaultImg from '../img/netflix.jpg';
+import dataNormalize from '../techBox/DataNormalize';
+const Cast = lazy(() =>
   import(
-    '../components/MovieDetails/MovieComponent' /* webpackChunkName: "movie-reviews" */
+    '../components/MovieDetails/Cast' /* webpackChunkName: "movie-cast" */
   ),
 );
+const Reviews = lazy(() =>
+  import(
+    '../components/MovieDetails/Reviews' /* webpackChunkName: "movie-reviews" */
+  ),
+);
+const URL = 'https://image.tmdb.org/t/p/w500';
+
 export default function MovieDetailsPageView() {
   const location = useLocation();
   const history = useHistory();
@@ -22,50 +24,130 @@ export default function MovieDetailsPageView() {
   const [movie, setMovie] = useState(null);
   const { url } = useRouteMatch();
   const movieId = slug.match(/[a-zA-Z0-9]+$/)[0];
-  //
+
   useEffect(() => {
     movieFetchApi.fetchForMovie(movieId).then(setMovie);
   }, [movieId]);
+  //
   const onGoBack = () => {
-    history.push(location?.state?.from?.location ?? '/');
+    // movieDetails without cast/views to home/movies-query
+    if (location?.state?.from?.location) {
+      history.push(location.state.from.location);
+    }
+    // movieDetails BY LINK (without cast/reviews)
+    if (location.state == null) {
+      history.push('/');
+    }
+    ///movieDetails:cast/reviews => HOME && movieDetails:cast/reviews=> moviesSearch
+    if (location?.state?.from?.location?.state?.from?.location) {
+      history.push(location.state.from.location.state.from.location);
+    }
+    //BY LINK movieDetails after choosen cast/link
+    if (location?.state?.from?.location.state === undefined) {
+      history.push('/');
+    }
+    //link onmovies search with list of results
+    // if (location?.state?.from?.location.state === undefined) {
+    //   history.push(location.state.from.location);
+    // }
   };
-
   return (
     <>
       {movie && (
         <>
           <Suspense fallback={<SpinLoader />}>
-            <MovieComponent
-              movie={movie}
-              url={url}
-              location={location}
-              onGoBack={onGoBack}
-            />
-            {/* <NavLink
-              exact
-              to={`${url}/cast`}
-              className="additional__item"
-              activeClassName="additional__active"
-            >
-              Cast
-            </NavLink>
-            <NavLink
-              exact
-              to={`${url}/reviews`}
-              className="additional__item"
-              activeClassName="additional__active"
-            >
-              Reviews
-            </NavLink>
-            <Route exact path={`${url}/cast`}>
-              <Cast id={movie.id} url={url} location={location} />
-            </Route>
-            <Route exact path={`${url}/reviews`}>
-              <Reviews id={movie.id} />
-            </Route> */}
+            <button type="button" onClick={onGoBack} className="back__btn">
+              &#8592; {location?.state?.from?.label ?? 'Go back'}
+            </button>
+            <div className="movie-details__box">
+              {movie.poster_path ? (
+                <img src={`${URL}${movie.poster_path}`} alt="" />
+              ) : (
+                <img src={defaultImg} alt="" />
+              )}
+
+              <div className="movie-details__info">
+                <h2 className="movie-details__title">
+                  {movie.title}
+                  {movie.release_date ? (
+                    <span> ({dataNormalize(movie.release_date)})</span>
+                  ) : (
+                    <span> (year: ????)</span>
+                  )}
+                </h2>
+                <p className="movie-details__desc">
+                  User Score:
+                  <span className="movie-details__vote">
+                    {movie.vote_average * 10}%
+                  </span>
+                </p>
+                <div className="movie-details__desc">
+                  Owerview
+                  <p className="movie-details__paragraph">{movie.overview}</p>
+                </div>
+
+                <ul className="genres__list">
+                  Genres:
+                  {movie.genres.map(el => {
+                    return (
+                      <li key={el.id} className="genres__item">
+                        {el.name}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+            <div>
+              <div className="additional__box">
+                <ul className="additional__list">
+                  <h3 className="additional__title">Additional information:</h3>
+                  <li>
+                    <NavLink
+                      exact
+                      to={{
+                        pathname: `${url}/cast`,
+                        state: { from: { location, label: 'Go back' } },
+                      }}
+                      // to={`${url}/cast`}
+                      className="additional__item"
+                      activeClassName="additional__active"
+                    >
+                      Cast
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      exact
+                      to={{
+                        pathname: `${url}/reviews`,
+                        state: { from: { location, label: 'Go back' } },
+                      }}
+                      // to={`${url}/reviews`}
+                      className="additional__item"
+                      activeClassName="additional__active"
+                    >
+                      Reviews
+                    </NavLink>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <Suspense>
+              <Route exact path={`${url}/cast`}>
+                <Cast id={movie.id} url={url} location={location} />
+              </Route>
+              <Route exact path={`${url}/reviews`}>
+                <Reviews id={movie.id} />
+              </Route>
+            </Suspense>
           </Suspense>
         </>
       )}
     </>
   );
 }
+
+// =======
+// history.push(location?.state?.from?.location ?? '/');
+//  else history.push('/');
