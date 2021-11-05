@@ -106,7 +106,6 @@ export default function MovieDetailsPageView() {
                         pathname: `${url}/cast`,
                         state: { from: location?.state?.from },
                       }}
-                      // to={`${url}/cast`}
                       className="additional__item"
                       activeClassName="additional__active"
                     >
@@ -119,9 +118,7 @@ export default function MovieDetailsPageView() {
                       to={{
                         pathname: `${url}/reviews`,
                         state: { from: location?.state?.from },
-                        // state: { from: { location, label: 'Go back' } },
                       }}
-                      // to={`${url}/reviews`}
                       className="additional__item"
                       activeClassName="additional__active"
                     >
