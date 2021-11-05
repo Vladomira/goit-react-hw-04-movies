@@ -38,31 +38,16 @@ export default function MovieDetailsPageView() {
     if (location.state == null) {
       history.push('/');
     }
-
     ///movieDetails:cast/reviews => HOME && movieDetails:cast/reviews=> moviesSearch
     if (location?.state?.from?.location?.state?.from?.location) {
       history.push(location.state.from.location.state.from.location);
     }
-
     //BY LINK movieDetails after choosen cast/link
     if (location?.state?.from?.location.state === undefined) {
       history.push('/');
     }
-    //details cast+reviews  не работает(((((((((
-    if (
-      location?.state?.from?.location?.state?.from?.location?.state?.from
-        ?.location?.state?.from?.location.state
-    ) {
-      history.push(
-        location.state.from.location.state.from.location.state.from.location
-          .state.from.location,
-      );
-    }
   };
-  // const newLoc = () => {
-  //   return location.state.from;
-  // };
-  // console.log('newLoc', newLoc());
+  console.log('location', location);
   return (
     <>
       {movie && (
@@ -119,7 +104,7 @@ export default function MovieDetailsPageView() {
                       exact
                       to={{
                         pathname: `${url}/cast`,
-                        state: { from: { location, label: 'Go back' } },
+                        state: { from: location?.state?.from },
                       }}
                       // to={`${url}/cast`}
                       className="additional__item"
@@ -133,7 +118,8 @@ export default function MovieDetailsPageView() {
                       exact
                       to={{
                         pathname: `${url}/reviews`,
-                        state: { from: { location, label: 'Go back' } },
+                        state: { from: location?.state?.from },
+                        // state: { from: { location, label: 'Go back' } },
                       }}
                       // to={`${url}/reviews`}
                       className="additional__item"
