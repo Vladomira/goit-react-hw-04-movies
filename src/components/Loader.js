@@ -3,7 +3,6 @@ import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import { React, Component } from 'react';
 
 export default class SpinLoader extends Component {
-  //other logic
   render() {
     return (
       <Loader

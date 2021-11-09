@@ -16,7 +16,6 @@ export default function Reviews({ id }) {
       scroll();
     });
   }, [id]);
-  // console.log(reviews.length, 'reviews');
   return (
     <>
       {status === 'pending' &&

@@ -127,25 +127,3 @@ export default function MovieDetailsPageView() {
   );
 }
 
-// =======
-// history.push(location?.state?.from?.location ?? '/');
-//  else history.push('/');
-
-// =====
-
-// movieDetails without cast/views to home/movies-query
-// if (location?.state?.from?.location) {
-//   history.push(location.state.from.location);
-// }
-// // movieDetails BY LINK (without cast/reviews)
-// if (location.state == null) {
-//   history.push('/');
-// }
-// ///movieDetails:cast/reviews => HOME && movieDetails:cast/reviews=> moviesSearch
-// if (location?.state?.from?.location?.state?.from?.location) {
-//   history.push(location.state.from.location.state.from.location);
-// }
-// //BY LINK movieDetails after choosen cast/link
-// if (location?.state?.from?.location.state === undefined) {
-//   history.push('/');
-// }

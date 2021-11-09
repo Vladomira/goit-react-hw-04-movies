@@ -34,13 +34,12 @@ export default function HomePageView() {
     <>
       {status === 'pending' && (
         <Suspense fallback={<SpinLoader />}>
-          {/* // <Route> */}
+        
           <HomeComponent
             trendMovies={trendMovies}
             makeSlug={makeSlug}
             location={location}
           />
-          {/* // </Route> */}
         </Suspense>
       )}
     </>

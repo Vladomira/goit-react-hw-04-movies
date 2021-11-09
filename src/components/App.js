@@ -6,6 +6,7 @@ import Container from './Container';
 // import MovieDetailsPage from '../views/MovieDetailsPage';
 // import NotFound from '../views/NotFound';
 import NavigationBox from './NavigationBox';
+import SpinLoader from '../components/Loader';
 
 //
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
@@ -36,18 +37,14 @@ function App() {
     <Container>
       <NavigationBox />
 
-      <Suspense fallback={<h1>Loading...</h1>}>
+      <Suspense fallback={<SpinLoader />}>
         <Switch>
-          <Route
-            path="/"
-            exact
-            // component={HomePageView}
-          >
+          <Route path="/" exact>
             <HomePageView />
           </Route>
 
           <Route path="/movies" exact>
-            {/* посик по ключевому слову */}
+            {/*searching by word */}
             <MoviesPageView />
           </Route>
 
